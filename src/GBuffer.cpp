@@ -47,24 +47,27 @@ void GBuffer::begin(ofCamera &cam, bool bUseOtherShader) {
 	ofSetMatrixMode(OF_MATRIX_MODELVIEW);
 	ofLoadMatrix(cam.getModelViewMatrix());
 
-	bUseShader = !bUseOtherShader;
-	if (bUseShader) {
-		shader.begin();
-		shader.setUniformMatrix4f("normalMatrix", glm::inverse(glm::transpose(cam.getModelViewMatrix())));
-		shader.setUniform1f("lds", 1. / (cam.getFarClip() - cam.getNearClip()));
-	}
-
 	ofPushStyle();
 	ofEnableDepthTest();
 	ofDisableAlphaBlending();
+	
+	bUseCommonShader = !bUseOtherShader;
+	if (bUseCommonShader) {
+		shader.begin();
+		shader.setUniform1f("lds", 1.0 / (cam.getFarClip() - cam.getNearClip()));
+		shader.setUniform1f("isShadow", 0);
+	}
 
 }
 
 void GBuffer::end() const {
+
+	if (bUseCommonShader) {
+		shader.end();
+	}
 	ofDisableDepthTest();
 	ofPopStyle();
 
-	if (bUseShader) shader.end();
 
 	ofPopView();
 	fbo.end();
