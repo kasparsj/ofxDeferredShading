@@ -7,7 +7,7 @@
 namespace ofxDeferred {
 	class AtomicCounterBuffer {
 	public:
-		AtomicCounterBuffer(int indirectVertCount) : maxCount(500) {
+		AtomicCounterBuffer(unsigned int indirectVertCount) : maxCount(500) {
 			// Create atomic counter buffer
 			// and define its initial storage capacity
 			glGenBuffers(1, &counterId);

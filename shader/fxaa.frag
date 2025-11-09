@@ -1,6 +1,6 @@
-#version 430 core
+#version 400
 
-layout (binding = 0) uniform sampler2DRect tex;
+uniform sampler2DRect tex;
 
 uniform vec2 texelStep;
 uniform int showEdges;

@@ -85,16 +85,17 @@ public:
 	};
 
 	void createBox(const glm::mat4& mat, float w, float h, float d, bool light) {
-		ofMesh _mesh = ofMesh::box(w, h, d, 1, 1, 1);
+		ofMesh _mesh = ofMesh::box(1, 1, 1, 1, 1, 1);
+        glm::mat4 matScaled = glm::scale(mat, glm::vec3(w, h, d));
 
 		ofFloatColor c;
 		if (light) c.set(2.f);
 		else c.setHsb(0.5, 0.2, 0.3);
 
-		glm::mat4 normMat = glm::inverse(glm::transpose(mat));
+		glm::mat4 normMat = glm::inverse(glm::transpose(matScaled));
 
 		for (int i = 0; i < _mesh.getNumVertices(); i++) {
-			_mesh.setVertex(i, mat * glm::vec4(_mesh.getVertex(i), 1.f));
+			_mesh.setVertex(i, matScaled * glm::vec4(_mesh.getVertex(i), 1.f));
 			glm::vec3 n = normMat * glm::vec4(_mesh.getNormal(i), 0.f);
 			_mesh.setNormal(i, glm::normalize(n));
 			_mesh.addColor(c);

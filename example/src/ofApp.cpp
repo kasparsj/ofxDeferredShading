@@ -65,7 +65,7 @@ void ofApp::setupDeferred() {
 	deferred.createPass<ofxDeferred::FxaaPass>();
 	
 	deferred.createPass<ofxDeferred::FogPass>();
-	dof = deferred.createPass<ofxDeferred::DofPass>();
+	//dof = deferred.createPass<ofxDeferred::DofPass>();
 	bloom = deferred.createPass<ofxDeferred::BloomPass>();
 
 	panel.setup();
